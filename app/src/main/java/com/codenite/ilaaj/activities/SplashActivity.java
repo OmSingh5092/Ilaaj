@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
                             finish();
                         }else{
                             Log.i("SPLASH SCREEN INTENT", "Logged in");
-                            Intent main = new Intent(SplashActivity.this, DashboardActivity.class);
+                            Intent main = new Intent(SplashActivity.this, HomeActivity.class);
                             startActivity(main);
                             finish();
                         }

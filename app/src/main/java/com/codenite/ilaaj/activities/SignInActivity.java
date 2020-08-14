@@ -35,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding=ActivitySigninBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -118,7 +119,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private  void goToHome(){
-        Intent i = new Intent(this,DashboardActivity.class);
+        Intent i = new Intent(this, HomeActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
