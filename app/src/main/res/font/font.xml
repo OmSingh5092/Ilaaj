@@ -5,4 +5,9 @@
         android:fontWeight="400"
         android:font="@font/alpaca" />
 
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/aller" />
+
 </font-family>
