@@ -9,5 +9,15 @@
         android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/aller" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/gotham" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/gotham_bold" />
+
 
 </font-family>
