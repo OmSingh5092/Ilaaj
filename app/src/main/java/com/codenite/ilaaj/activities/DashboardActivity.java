@@ -1,8 +1,10 @@
-package com.codenite.ilaaj;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.codenite.ilaaj.activities;
 
 import android.os.Bundle;
+
+import com.codenite.ilaaj.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DashboardActivity extends AppCompatActivity {
 
