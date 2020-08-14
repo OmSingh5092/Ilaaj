@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:fontFamily="@font/alpaca"
+        android:text="ilaaj"
+        android:layout_marginRight="20dp"
+        android:textColor="#ffffff"
+        android:textSize="144sp" />
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_1"
+        app:menu="@menu/side_nav_1"
+        android:background="@color/colorPrimary"
+        app:itemTextAppearance="@style/SidNavText"
+        app:itemTextColor="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_2"
+        android:layout_marginTop="30dp"
+        app:menu="@menu/side_nav_2"
+        android:background="@color/colorPrimary"
+        app:itemTextAppearance="@style/SidNavText"
+        app:itemTextColor="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

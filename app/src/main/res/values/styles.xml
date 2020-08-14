@@ -11,5 +11,9 @@
         <item name="android:fontFamily">@font/alpaca</item>
         <item name="android:textSize">30sp</item>
     </style>
+    <style name="SidNavText" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/aller</item>
+        <item name="android:textSize">25sp</item>
+    </style>
 
 </resources>
