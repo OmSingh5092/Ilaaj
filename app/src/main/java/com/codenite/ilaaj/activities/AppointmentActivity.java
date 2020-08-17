@@ -1,8 +1,10 @@
 package com.codenite.ilaaj.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import com.codenite.ilaaj.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AppointmentActivity extends AppCompatActivity {
 
