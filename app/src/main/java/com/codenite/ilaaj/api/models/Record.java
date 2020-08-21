@@ -3,7 +3,7 @@ package com.codenite.ilaaj.api.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Prescriptions {
+public class Record {
     @SerializedName("id")
     @Expose
     int id;
@@ -19,9 +19,6 @@ public class Prescriptions {
     @SerializedName("patient_id")
     @Expose
     int patientId;
-    @SerializedName("doctor_id")
-    @Expose
-    int doctorId;
     @SerializedName("hash")
     @Expose
     String hash;
@@ -64,14 +61,6 @@ public class Prescriptions {
 
     public void setPatientId(int patientId) {
         this.patientId = patientId;
-    }
-
-    public int getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
     }
 
     public String getHash() {

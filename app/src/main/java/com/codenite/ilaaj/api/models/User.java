@@ -3,7 +3,7 @@ package com.codenite.ilaaj.api.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Users {
+public class User {
     @SerializedName("id")
     @Expose
     int id;

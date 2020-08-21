@@ -16,5 +16,6 @@ public class PreviousReportsActivity extends AppCompatActivity {
         ActivityPreviousReportsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
     }
 }
