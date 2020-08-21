@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
 
+import com.codenite.ilaaj.api.controllers.RecordController;
 import com.codenite.ilaaj.api.models.Record;
 import com.codenite.ilaaj.databinding.ActivityPreviousReportsBinding;
 import com.codenite.ilaaj.recyclerView.adapters.PreviousReportsAdapter;
@@ -60,13 +61,31 @@ public class PreviousReportsActivity extends AppCompatActivity {
     private void uploadFile(Uri uri){
         //upload the file and get the path
 
-        Storage.uploadRecord(uri, new Storage.storageEvent() {
+        Storage.uploadRecord(uri, new Storage.recordUploadHandler() {
             @Override
-            public void onUploadRecord(Record record) {
+            public void onSuccess(Record record) {
+                uploadRecord(record);
+            }
+            @Override
+            public void onFailure(Exception e) {
 
             }
         });
+    }
 
+    private void uploadRecord(Record record){
+        RecordController.create(record, new RecordController.recordDatabaseHandler() {
+            @Override
+            public void onSuccess(Record record) {
+                list.add(record);
+                updateRecyclerView();
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
     }
 
     @Override

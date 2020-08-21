@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.codenite.ilaaj.api.controllers.RecordController;
 import com.codenite.ilaaj.api.models.Record;
 import com.codenite.ilaaj.databinding.RecyclerDocumentsBinding;
 
@@ -62,8 +64,18 @@ public class PreviousReportsAdapter extends RecyclerView.Adapter<PreviousReports
     }
 
     private void deleteDocument(int position){
-        //Make the query to database to delete the record
-        data.remove(position);
-        this.notifyItemRemoved(position);
+        RecordController.delete(data.get(position), new RecordController.recordDatabaseHandler() {
+            @Override
+            public void onSuccess(Record record) {
+                data.remove(position);
+                PreviousReportsAdapter.this.notifyItemRemoved(position);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

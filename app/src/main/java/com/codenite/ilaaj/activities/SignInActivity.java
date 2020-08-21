@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.codenite.ilaaj.R;
+import com.codenite.ilaaj.api.controllers.UserController;
+import com.codenite.ilaaj.api.models.User;
 import com.codenite.ilaaj.databinding.ActivitySigninBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -39,6 +42,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getResources().getString(R.string.web_client_id))
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
@@ -71,7 +75,7 @@ public class SignInActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
-            userSignIn();
+            userSignIn(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -80,9 +84,21 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
-    private void userSignIn(){
+    private void userSignIn(GoogleSignInAccount account){
         //Add code to submit user info in the database
-        firebaseAuthWithGoogle("token");
+        User user = new User();
+        UserController.create(account.getIdToken(), new UserController.userDatabaseHandler() {
+            @Override
+            public void onSuccess(User user) {
+                firebaseAuthWithGoogle(account.getIdToken());
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(SignInActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
