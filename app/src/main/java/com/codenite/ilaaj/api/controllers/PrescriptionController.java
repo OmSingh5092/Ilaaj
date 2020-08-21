@@ -1,6 +1,6 @@
 package com.codenite.ilaaj.api.controllers;
 
-import com.codenite.ilaaj.api.models.Prescription;
+import com.codenite.ilaaj.api.dataModels.Prescription;
 
 public class PrescriptionController {
     public interface prescriptionDatabaseHandler{

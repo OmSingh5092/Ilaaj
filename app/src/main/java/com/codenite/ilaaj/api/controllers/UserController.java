@@ -1,6 +1,6 @@
 package com.codenite.ilaaj.api.controllers;
 
-import com.codenite.ilaaj.api.models.User;
+import com.codenite.ilaaj.api.dataModels.User;
 
 public class UserController {
 
@@ -9,7 +9,12 @@ public class UserController {
         void onFailure(Exception e);
     }
 
-    public static void create(String token,userDatabaseHandler handler){
+    public interface tokenHandler{
+        void onSuccess(String token, boolean newUser);
+        void onFailure(Exception e);
+    }
+
+    public static void create(String token,tokenHandler handler){
 
     }
 

@@ -8,8 +8,9 @@ import android.widget.Toast;
 
 import com.codenite.ilaaj.R;
 import com.codenite.ilaaj.api.controllers.UserController;
-import com.codenite.ilaaj.api.models.User;
+import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.databinding.ActivitySigninBinding;
+import com.codenite.ilaaj.utils.SharedPrefs;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -20,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import androidx.annotation.NonNull;
@@ -33,6 +33,7 @@ public class SignInActivity extends AppCompatActivity {
     ActivitySigninBinding binding;
 
     FirebaseAuth mAuth;
+    SharedPrefs sharedPrefs;
 
     int RC_SIGN_IN;
     @Override
@@ -40,6 +41,8 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivitySigninBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        sharedPrefs = new SharedPrefs(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getResources().getString(R.string.web_client_id))
@@ -87,9 +90,14 @@ public class SignInActivity extends AppCompatActivity {
     private void userSignIn(GoogleSignInAccount account){
         //Add code to submit user info in the database
         User user = new User();
-        UserController.create(account.getIdToken(), new UserController.userDatabaseHandler() {
+        UserController.create(account.getIdToken(), new UserController.tokenHandler() {
             @Override
-            public void onSuccess(User user) {
+            public void onSuccess(String token, boolean newUser) {
+                sharedPrefs.saveName(account.getDisplayName());
+                sharedPrefs.saveEmail(account.getEmail());
+                sharedPrefs.saveNewUser(newUser);
+                sharedPrefs.saveToken(token);
+
                 firebaseAuthWithGoogle(account.getIdToken());
             }
 
@@ -110,8 +118,12 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            goToOnBoarding();
+
+                            if(sharedPrefs.getNewUser()){
+                                goToOnBoarding();
+                            }else{
+                                goToHome();
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());

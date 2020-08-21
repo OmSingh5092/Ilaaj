@@ -7,7 +7,7 @@ import android.os.PersistableBundle;
 import android.view.View;
 
 import com.codenite.ilaaj.api.controllers.RecordController;
-import com.codenite.ilaaj.api.models.Record;
+import com.codenite.ilaaj.api.dataModels.Record;
 import com.codenite.ilaaj.databinding.ActivityPreviousReportsBinding;
 import com.codenite.ilaaj.recyclerView.adapters.PreviousReportsAdapter;
 import com.codenite.ilaaj.utils.firebase.Storage;
@@ -95,6 +95,4 @@ public class PreviousReportsActivity extends AppCompatActivity {
             uploadFile(data.getData());
         }
     }
-
-
 }

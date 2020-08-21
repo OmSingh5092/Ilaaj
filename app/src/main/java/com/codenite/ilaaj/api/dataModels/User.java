@@ -1,4 +1,4 @@
-package com.codenite.ilaaj.api.models;
+package com.codenite.ilaaj.api.dataModels;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -28,6 +28,17 @@ public class User {
     @SerializedName("hash")
     @Expose
     String hash;
+    @SerializedName("new_user")
+    @Expose
+    boolean newUser;
+
+    public boolean isNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(boolean newUser) {
+        this.newUser = newUser;
+    }
 
     public int getId() {
         return id;

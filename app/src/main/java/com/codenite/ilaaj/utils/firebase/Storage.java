@@ -2,7 +2,7 @@ package com.codenite.ilaaj.utils.firebase;
 
 import android.net.Uri;
 
-import com.codenite.ilaaj.api.models.Record;
+import com.codenite.ilaaj.api.dataModels.Record;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

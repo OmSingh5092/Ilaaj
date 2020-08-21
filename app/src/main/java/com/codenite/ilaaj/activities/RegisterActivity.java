@@ -3,8 +3,10 @@ package com.codenite.ilaaj.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
-import com.codenite.ilaaj.api.models.User;
+import com.codenite.ilaaj.api.controllers.UserController;
+import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.databinding.ActivityRegisterBinding;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -33,7 +35,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void uploadData(){
-        goToNextStep();
+        UserController.update(user, new UserController.userDatabaseHandler() {
+            @Override
+            public void onSuccess(User user) {
+                goToNextStep();
+            }
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(RegisterActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void goToNextStep(){

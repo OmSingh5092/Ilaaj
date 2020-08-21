@@ -1,6 +1,6 @@
 package com.codenite.ilaaj.api.controllers;
 
-import com.codenite.ilaaj.api.models.Record;
+import com.codenite.ilaaj.api.dataModels.Record;
 
 public class RecordController {
     public interface recordDatabaseHandler{

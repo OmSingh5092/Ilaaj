@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codenite.ilaaj.api.controllers.RecordController;
-import com.codenite.ilaaj.api.models.Record;
+import com.codenite.ilaaj.api.dataModels.Record;
 import com.codenite.ilaaj.databinding.RecyclerDocumentsBinding;
 
 import java.util.List;
