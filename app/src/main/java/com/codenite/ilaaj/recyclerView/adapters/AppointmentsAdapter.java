@@ -1,4 +1,4 @@
-package com.codenite.ilaaj.adapters;
+package com.codenite.ilaaj.recyclerView.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import com.codenite.ilaaj.databinding.RecyclerAppointmentsBinding;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AppointmentsRecycler extends RecyclerView.Adapter<AppointmentsRecycler.ViewHolder> {
+public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapter.ViewHolder> {
     RecyclerAppointmentsBinding binding;
     Context context;
     @NonNull

@@ -1,34 +1,33 @@
-package com.codenite.ilaaj.adapters;
+package com.codenite.ilaaj.recyclerView.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codenite.ilaaj.databinding.RecyclerDocumentsBinding;
+import com.codenite.ilaaj.databinding.RecyclerBookedAppointmentBinding;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PreviousReportsRecycler extends RecyclerView.Adapter<PreviousReportsRecycler.ViewHolder> {
-    RecyclerDocumentsBinding binding;
+public class BookedAppointmentsAdapter extends RecyclerView.Adapter<BookedAppointmentsAdapter.ViewHolder> {
+    RecyclerBookedAppointmentBinding binding;
     Context context;
-    
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = RecyclerDocumentsBinding.inflate(LayoutInflater.from(context),parent,false);
+        binding = RecyclerBookedAppointmentBinding.inflate(LayoutInflater.from(context),parent,false);
         return new ViewHolder(binding.getRoot());
-    }
-
-    @Override
-    public int getItemCount() {
-        return 0;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

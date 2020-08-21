@@ -70,4 +70,9 @@ public class Record {
     public void setHash(String hash) {
         this.hash = hash;
     }
+
+    public String getFileName(){
+        String[] parsed = link.split("/");
+        return parsed[parsed.length-1];
+    }
 }
