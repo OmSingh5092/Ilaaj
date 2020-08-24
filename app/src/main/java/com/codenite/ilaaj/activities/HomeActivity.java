@@ -33,6 +33,8 @@ public class HomeActivity extends AppCompatActivity {
         changeFragment(0);
         setUpSideNav();
 
+
+
     }
 
     private void setUpSideNav(){
@@ -67,10 +69,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    void changeFragment(int ind){
+    public void changeFragment(int ind){
         switch (ind){
             case 0:
-                fragment = new DashboardFragment();
+                fragment = new DashboardFragment(this);
                 break;
             case 1:
                 fragment = new MakeAppointmentFragment();
