@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="20dp"
     android:background="@color/colorPrimary"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
     <TextView
@@ -19,6 +20,7 @@
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_1"
         app:menu="@menu/side_nav_1"
+        app:elevation="0dp"
         android:background="@color/colorPrimary"
         app:itemTextAppearance="@style/SidNavText"
         app:itemTextColor="#ffffff"
@@ -29,6 +31,7 @@
         android:id="@+id/navigation_2"
         android:layout_marginTop="30dp"
         app:menu="@menu/side_nav_2"
+        app:elevation="0dp"
         android:background="@color/colorPrimary"
         app:itemTextAppearance="@style/SidNavText"
         app:itemTextColor="#ffffff"
