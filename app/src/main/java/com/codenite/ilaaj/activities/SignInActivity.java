@@ -89,6 +89,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void userSignIn(GoogleSignInAccount account){
         //Add code to submit user info in the database
+        Log.i("Token",account.getIdToken());
         User user = new User();
         UserController.create(account.getIdToken(), new UserController.tokenHandler() {
             @Override
@@ -97,7 +98,6 @@ public class SignInActivity extends AppCompatActivity {
                 sharedPrefs.saveEmail(account.getEmail());
                 sharedPrefs.saveNewUser(newUser);
                 sharedPrefs.saveToken(token);
-
                 firebaseAuthWithGoogle(account.getIdToken());
             }
 
