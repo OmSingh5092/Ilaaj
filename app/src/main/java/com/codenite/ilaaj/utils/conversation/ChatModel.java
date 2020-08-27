@@ -3,6 +3,16 @@ package com.codenite.ilaaj.utils.conversation;
 public class ChatModel {
     private String messageText;
     private String mediaPath;
+    private boolean isDoctor;
+
+    public boolean isDoctor() {
+        return isDoctor;
+    }
+
+    public void setDoctor(boolean doctor) {
+        isDoctor = doctor;
+    }
+
     private long time;
     private int status;
 

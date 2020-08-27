@@ -26,7 +26,7 @@ public class DateFormatter {
     }
 
     public String getDateAndTime(){
-        dateFormat = new SimpleDateFormat("");
+        dateFormat = new SimpleDateFormat("hh:mm dd MMM yy");
         return dateFormat.format(date);
     }
 }

@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPrefs {
-    String email = "email", name = "name",token= "token", newUser = "newUser";
+    String email = "email", name = "name",token= "token", newUser = "newUser", userType = "userType";
+    boolean isDoctor = false;
     Context context;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -53,5 +54,14 @@ public class SharedPrefs {
     public void clearData(){
         editor.clear();
         editor.commit();
+    }
+
+    public void saveUserType(boolean isDoctor){
+        editor.putBoolean(userType,isDoctor);
+        editor.commit();
+    }
+
+    public boolean isDoctor(){
+        return sharedPreferences.getBoolean(userType,true);
     }
 }

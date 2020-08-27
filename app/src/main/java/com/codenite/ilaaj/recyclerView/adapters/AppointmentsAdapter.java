@@ -20,9 +20,15 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
     Context context;
     List<Appointment> data = new ArrayList<>();
 
-    public AppointmentsAdapter(Context context, List<Appointment> data) {
+    public interface ItemClickHandler{
+        void onViewClick(int position);
+    }
+    ItemClickHandler handler;
+
+    public AppointmentsAdapter(Context context, List<Appointment> data,ItemClickHandler handler) {
         this.context = context;
         this.data = data;
+        this.handler = handler;
     }
 
     @NonNull
@@ -51,6 +57,13 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
             doctorType = binding.doctorCategory;
             rating = binding.rating;
             charge = binding.charge;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    handler.onViewClick(getAdapterPosition());
+                }
+            });
         }
     }
 }
