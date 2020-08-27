@@ -91,6 +91,7 @@ public class SignInActivity extends AppCompatActivity {
         //Add code to submit user info in the database
         Log.i("Token",account.getIdToken());
         User user = new User();
+        firebaseAuthWithGoogle(account.getIdToken());
         UserController.create(account.getIdToken(), new UserController.tokenHandler() {
             @Override
             public void onSuccess(String token, boolean newUser) {

@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AppointmentActivity"></activity>
+        <activity android:name=".activities.ConversationActivity"></activity>
+        <activity android:name=".activities.AppointmentActivity" />
         <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.SignInActivity" />
