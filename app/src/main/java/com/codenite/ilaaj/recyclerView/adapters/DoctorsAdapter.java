@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.codenite.ilaaj.api.dataModels.Appointment;
-import com.codenite.ilaaj.databinding.RecyclerAppointmentsBinding;
+import com.codenite.ilaaj.api.dataModels.User;
+import com.codenite.ilaaj.databinding.RecyclerDoctorsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,17 +15,13 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapter.ViewHolder> {
-    RecyclerAppointmentsBinding binding;
+public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHolder> {
+    RecyclerDoctorsBinding binding;
     Context context;
-    List<Appointment> data = new ArrayList<>();
-
-    public interface ItemClickHandler{
-        void onViewClick(int position);
-    }
+    List<User> data = new ArrayList<>();
     ItemClickHandler handler;
 
-    public AppointmentsAdapter(Context context, List<Appointment> data,ItemClickHandler handler) {
+    public DoctorsAdapter(Context context, List<User> data, ItemClickHandler handler) {
         this.context = context;
         this.data = data;
         this.handler = handler;
@@ -34,19 +30,19 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = RecyclerAppointmentsBinding.inflate(LayoutInflater.from(context),parent,false);
+        binding = RecyclerDoctorsBinding.inflate(LayoutInflater.from(context),parent,false);
         return new ViewHolder(binding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Appointment appointment = data.get(position);
-
+        User user = data.get(position);
+        holder.doctorName.setText(user.getName());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

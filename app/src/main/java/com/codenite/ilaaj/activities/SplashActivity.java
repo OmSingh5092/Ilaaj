@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
                 new Runnable() {
                     @Override
                     public void run() {
-                        if(true){
+                        if(currentUser==null){
                             Log.i("SPLASH SCREEN INTENT", "Not logged in");
                             Intent login = new Intent(SplashActivity.this, SignInActivity.class);
                             startActivity(login);

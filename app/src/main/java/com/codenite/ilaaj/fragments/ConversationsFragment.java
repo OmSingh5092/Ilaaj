@@ -10,7 +10,8 @@ import com.codenite.ilaaj.activities.ConversationActivity;
 import com.codenite.ilaaj.api.controllers.AppointmentController;
 import com.codenite.ilaaj.api.dataModels.Appointment;
 import com.codenite.ilaaj.databinding.FragmentConversationsBinding;
-import com.codenite.ilaaj.recyclerView.adapters.AppointmentsAdapter;
+import com.codenite.ilaaj.recyclerView.adapters.BookedAppointmentsAdapter;
+import com.codenite.ilaaj.recyclerView.adapters.ItemClickHandler;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 public class ConversationsFragment extends Fragment {
     FragmentConversationsBinding binding;
     List<Appointment> data;
-    AppointmentsAdapter adapter;
+    BookedAppointmentsAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class ConversationsFragment extends Fragment {
 
     private void setUpAppointmentRecyclerView(){
         binding.contacts.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new AppointmentsAdapter(getActivity(), data, new AppointmentsAdapter.ItemClickHandler() {
+        adapter = new BookedAppointmentsAdapter(getActivity(), data, new ItemClickHandler() {
             @Override
             public void onViewClick(int position) {
                 Appointment appointment = data.get(position);

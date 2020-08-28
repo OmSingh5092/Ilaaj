@@ -19,10 +19,12 @@ public class BookedAppointmentsAdapter extends RecyclerView.Adapter<BookedAppoin
     RecyclerBookedAppointmentBinding binding;
     Context context;
     List<Appointment> data = new ArrayList<>();
+    ItemClickHandler handler;
 
-    public BookedAppointmentsAdapter(Context context, List<Appointment> data) {
+    public BookedAppointmentsAdapter(Context context, List<Appointment> data, ItemClickHandler handler) {
         this.context = context;
         this.data = data;
+        this.handler = handler;
     }
 
     @NonNull

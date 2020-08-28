@@ -9,6 +9,7 @@ import android.widget.TimePicker;
 
 import com.codenite.ilaaj.api.controllers.AppointmentController;
 import com.codenite.ilaaj.api.dataModels.Appointment;
+import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.databinding.ActivityAppointmentBinding;
 import com.codenite.ilaaj.utils.DateFormatter;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,6 +24,7 @@ public class AppointmentActivity extends AppCompatActivity {
     Appointment appointment;
     Calendar calendar;
     Date appointmentDate;
+    User doctor = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,10 @@ public class AppointmentActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
         setPickerDialogs();
+        doctor = (User) getIntent().getSerializableExtra("doctor");
+
+        addInfo();
+
         binding.pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,6 +47,10 @@ public class AppointmentActivity extends AppCompatActivity {
                 startPayment();
             }
         });
+    }
+
+    private void addInfo(){
+        binding.doctorName.setText(doctor.getName());
     }
 
     private void setPickerDialogs(){
@@ -62,18 +72,21 @@ public class AppointmentActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                 calendar.set(Calendar.HOUR_OF_DAY,i);
                 calendar.set(Calendar.MINUTE,i1);
+                binding.time.setText(new DateFormatter(new Date(calendar.getTimeInMillis())).getTime());
             }
         },present.get(Calendar.HOUR_OF_DAY),present.get(Calendar.MINUTE),false);
 
         binding.date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                timePickerDialog.dismiss();
                 datePickerDialog.show();
             }
         });
         binding.time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                datePickerDialog.dismiss();
                 timePickerDialog.show();
             }
         });

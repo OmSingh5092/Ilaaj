@@ -11,12 +11,12 @@ public class DateFormatter {
     }
 
     public String getDate(){
-        dateFormat = new SimpleDateFormat("");
+        dateFormat = new SimpleDateFormat("dd MMM yy");
         return dateFormat.format(date);
     }
 
     public String getTime(){
-        dateFormat = new SimpleDateFormat("");
+        dateFormat = new SimpleDateFormat("hh:mm:aa");
         return dateFormat.format(date);
     }
 
