@@ -67,12 +67,15 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/charge"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_bold"
                         android:hint="Enter your charge" />
 
                     <EditText
+                        android:id="@+id/upi_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_bold"
@@ -82,7 +85,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_marginHorizontal="20dp"
-                android:id="@+id/add_report"
+                android:id="@+id/submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
