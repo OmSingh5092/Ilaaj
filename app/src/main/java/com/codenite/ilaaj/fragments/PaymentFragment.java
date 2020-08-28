@@ -19,13 +19,14 @@ public class PaymentFragment extends Fragment {
     FragmentPaymentBinding binding;
     String upi, charge;
     Context context;
+    User user;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentPaymentBinding.inflate(getLayoutInflater(),container,false);
         context = getContext();
-
+        loadData();
         binding.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +39,25 @@ public class PaymentFragment extends Fragment {
             }
         });
         return binding.getRoot();
+    }
+
+    private void loadData(){
+        new UserController(context).getUser(new UserController.userGetHandler() {
+            @Override
+            public void onSuccess(User user) {
+                PaymentFragment.this.user = user;
+                setText();
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+
+            }
+        });
+    }
+
+    private void setText(){
+
     }
 
     private void getText(){

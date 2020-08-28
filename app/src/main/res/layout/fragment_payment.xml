@@ -23,11 +23,12 @@
             tools:text="Hi, Arjun!" />
 
         <TextView
+            android:textAlignment="textEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:fontFamily="@font/gotham_bold"
-            android:text="Dashboard"
+            android:text="Manage Your Payment Details"
             android:textColor="@color/colorPrimary"
             android:textSize="40sp" />
 
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/aller"
             android:textColor="@color/colorPrimary"
-            android:text="Hope you are okay!" />
+            android:text="Please fill the details carefully!" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,11 +62,16 @@
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="30dp"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/aller"
+                        android:text="Charge" />
                     <EditText
                         android:id="@+id/charge"
                         android:inputType="number"
@@ -74,6 +80,12 @@
                         android:fontFamily="@font/gotham_bold"
                         android:hint="Enter your charge" />
 
+                    <TextView
+                        android:layout_marginTop="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/aller"
+                        android:text="Upi Id" />
                     <EditText
                         android:id="@+id/upi_id"
                         android:layout_width="match_parent"

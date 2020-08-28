@@ -6,17 +6,19 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.codenite.ilaaj.R;
+import com.codenite.ilaaj.utils.SharedPrefs;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
-
+    SharedPrefs prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        prefs = new SharedPrefs(this);
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         new Handler().postDelayed(
@@ -29,10 +31,18 @@ public class SplashActivity extends AppCompatActivity {
                             startActivity(login);
                             finish();
                         }else{
-                            Log.i("SPLASH SCREEN INTENT", "Logged in");
-                            Intent main = new Intent(SplashActivity.this, HomeActivity.class);
-                            startActivity(main);
-                            finish();
+                            if(prefs.isDoctor()){
+                                Log.i("SPLASH SCREEN INTENT", "Logged in");
+                                Intent main = new Intent(SplashActivity.this, DoctorHomeActivity.class);
+                                startActivity(main);
+                                finish();
+                            }else{
+                                Log.i("SPLASH SCREEN INTENT", "Logged in");
+                                Intent main = new Intent(SplashActivity.this, HomeActivity.class);
+                                startActivity(main);
+                                finish();
+                            }
+
                         }
                     }
                 },
