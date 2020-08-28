@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.codenite.ilaaj.api.controllers.UserController;
 import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.databinding.ActivityRegisterBinding;
+import com.codenite.ilaaj.utils.SharedPrefs;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +17,14 @@ public class RegisterPatientActivity extends AppCompatActivity {
     ActivityRegisterBinding binding;
 
     User user = new User();
+    SharedPrefs prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        prefs = new SharedPrefs(this);
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +38,7 @@ public class RegisterPatientActivity extends AppCompatActivity {
         new UserController(this).addUser(user, new UserController.addUserHandler() {
             @Override
             public void onSuccess(User user) {
+                prefs.saveUserId(user.getId());
                 goToNextStep();
             }
 

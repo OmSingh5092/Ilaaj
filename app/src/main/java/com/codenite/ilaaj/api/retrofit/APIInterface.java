@@ -19,6 +19,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -41,11 +42,11 @@ public interface APIInterface {
     Call<UpdateUserResponse> updateUser(@Header("token")String token,@Body Map<String,String>body);
 
     //Appointments
-    @GET("appointments/get")
+    @HTTP(method = "GET", path = "appointments/get", hasBody = true)
     Call<GetAppointmentResponse> getAppointment(@Header("token")String token, @Body Map<String,String> body);
     @GET("appointments/get/all")
     Call<GetAllAppointmentsResponse> getAllAppointments(@Header("token") String token);
-    @GET("appointments/get/user")
+    @HTTP(method = "GET", path = "appointments/get/user", hasBody = true)
     Call<GetByUserResponse> getAppointmentByUser(@Header("token")String token,@Body Map<String,String> body);
     @DELETE("appointments/delete")
     Call<DeleteAppointmentResponse> deleteAppointment(@Header("token")String token,@Body Map<String,String>body);

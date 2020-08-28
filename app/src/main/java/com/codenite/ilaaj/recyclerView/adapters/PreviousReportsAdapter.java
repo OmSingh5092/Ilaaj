@@ -21,10 +21,11 @@ public class PreviousReportsAdapter extends RecyclerView.Adapter<PreviousReports
     RecyclerDocumentsBinding binding;
     Context context;
     List<Record> data;
-
-    public PreviousReportsAdapter(Context context, List<Record> data) {
+    ItemClickHandler handler;
+    public PreviousReportsAdapter(Context context, List<Record> data,ItemClickHandler handler) {
         this.context = context;
         this.data = data;
+        this.handler = handler;
     }
 
     @NonNull

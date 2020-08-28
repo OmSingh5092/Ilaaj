@@ -1,19 +1,23 @@
 package com.codenite.ilaaj.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codenite.ilaaj.activities.ConversationActivity;
 import com.codenite.ilaaj.activities.HomeActivity;
 import com.codenite.ilaaj.api.controllers.AppointmentController;
 import com.codenite.ilaaj.api.dataModels.Appointment;
 import com.codenite.ilaaj.databinding.FragmentDashboardBinding;
 import com.codenite.ilaaj.recyclerView.adapters.BookedAppointmentsAdapter;
 import com.codenite.ilaaj.recyclerView.adapters.ItemClickHandler;
+import com.codenite.ilaaj.utils.SharedPrefs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
@@ -23,7 +27,9 @@ public class DashboardFragment extends Fragment {
     FragmentDashboardBinding binding;
     HomeActivity activity;
     BookedAppointmentsAdapter adapter;
-    List<Appointment> data;
+    List<Appointment> data = new ArrayList<>();
+    Context context;
+    SharedPrefs prefs;
     public DashboardFragment(HomeActivity activity){
         this.activity = activity;
     }
@@ -33,7 +39,8 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentDashboardBinding.inflate(LayoutInflater.from(getActivity()),container,false);
-
+        context = getContext();
+        prefs = new SharedPrefs(context);
         binding.appointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,18 +60,26 @@ public class DashboardFragment extends Fragment {
     }
 
     private void loadData(){
-        AppointmentController.get(new AppointmentController.GetHandler() {
+        new AppointmentController(context).getByUser(prefs.getUserId(), new AppointmentController.getByUserHandler() {
             @Override
-            public void onSuccess(List<Appointment> data) {
+            public void onSuccess(List<Appointment> appointments) {
                 DashboardFragment.this.data = data;
+                Log.i("Data",data.toString());
                 setUpAppointmentRecyclerView();
             }
 
             @Override
-            public void onFailure(Exception e) {
-
+            public void onFailure(Throwable t) {
+                Log.e("Error",t.getMessage());
             }
         });
+
+    }
+
+    private void openMeetingUrl(String url){
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
     private void setUpAppointmentRecyclerView(){
@@ -72,9 +87,7 @@ public class DashboardFragment extends Fragment {
         adapter = new BookedAppointmentsAdapter(getActivity(), data, new ItemClickHandler() {
             @Override
             public void onViewClick(int position) {
-                Appointment appointment = data.get(position);
-                Intent i = new Intent(getContext(), ConversationActivity.class);
-                i.putExtra("channelId",String.valueOf(appointment.getAppointmentId()));
+                openMeetingUrl(data.get(position).getMeetLink());
             }
         });
 

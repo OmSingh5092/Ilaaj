@@ -10,6 +10,18 @@ public class Appointment {
     @SerializedName("user_id")
     @Expose
     int userId;
+    @SerializedName("doctor_id")
+    @Expose
+    int doctorId;
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
+
     @SerializedName("dateTime")
     @Expose
     String dateTime;

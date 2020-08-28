@@ -96,4 +96,8 @@ public class HomeActivity extends AppCompatActivity {
         binding.drawer.openDrawer(Gravity.LEFT);
         return super.onSupportNavigateUp();
     }
+
+    private void signOut(){
+
+    }
 }

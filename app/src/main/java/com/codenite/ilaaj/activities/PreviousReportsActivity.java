@@ -8,6 +8,7 @@ import android.view.View;
 import com.codenite.ilaaj.api.controllers.RecordController;
 import com.codenite.ilaaj.api.dataModels.Record;
 import com.codenite.ilaaj.databinding.ActivityPreviousReportsBinding;
+import com.codenite.ilaaj.recyclerView.adapters.ItemClickHandler;
 import com.codenite.ilaaj.recyclerView.adapters.PreviousReportsAdapter;
 import com.codenite.ilaaj.utils.PermissionHandler;
 import com.codenite.ilaaj.utils.firebase.Storage;
@@ -57,7 +58,12 @@ public class PreviousReportsActivity extends AppCompatActivity {
 
     private void setUpRecyclerView(){
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PreviousReportsAdapter(this,list);
+        adapter = new PreviousReportsAdapter(this, list, new ItemClickHandler() {
+            @Override
+            public void onViewClick(int position) {
+
+            }
+        });
         binding.recyclerView.setAdapter(adapter);
     }
 

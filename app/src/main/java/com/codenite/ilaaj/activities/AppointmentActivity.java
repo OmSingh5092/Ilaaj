@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.codenite.ilaaj.api.controllers.AppointmentController;
 import com.codenite.ilaaj.api.dataModels.Appointment;
 import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.databinding.ActivityAppointmentBinding;
 import com.codenite.ilaaj.utils.DateFormatter;
+import com.codenite.ilaaj.utils.SharedPrefs;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
@@ -25,6 +27,7 @@ public class AppointmentActivity extends AppCompatActivity {
     Calendar calendar;
     Date appointmentDate;
     User doctor = new User();
+    SharedPrefs prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class AppointmentActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         setPickerDialogs();
         doctor = (User) getIntent().getSerializableExtra("doctor");
-
+        prefs = new SharedPrefs(this);
         addInfo();
 
         binding.pay.setOnClickListener(new View.OnClickListener() {
@@ -95,22 +98,27 @@ public class AppointmentActivity extends AppCompatActivity {
 
     private void getDataFromEditText(){
         appointment = new Appointment();
+
+        appointment.setDateTime(new DateFormatter(new Date(calendar.getTimeInMillis())).getDateISO());
+        appointment.setDoctorId(doctor.getId());
+        appointment.setUserId(prefs.getUserId());
         //Fill the details in appointment object.
     }
 
     private void startPayment(){
-
+        onPaymentSuccess();
     }
 
     private void onPaymentSuccess(){
-        AppointmentController.create(appointment, new AppointmentController.AppointmentDatabaseHandler() {
+        new AppointmentController(this).addAppointment(appointment, new AppointmentController.addAppointmentHandler() {
             @Override
             public void onSuccess(Appointment appointment) {
-
+                Toast.makeText(AppointmentActivity.this, "Appointment Added Successfully!", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
-            public void onFailure(Exception e) {
+            public void onFailure(Throwable t) {
 
             }
         });
