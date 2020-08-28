@@ -145,7 +145,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void goToOnBoarding(){
-        Intent i = new Intent(this,RegisterActivity.class);
+        Intent i = new Intent(this, RegisterPatientActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.api.responseModel.signin.GoogleSignInResponse;
+import com.codenite.ilaaj.api.responseModel.user.AddUserResponse;
 import com.codenite.ilaaj.api.responseModel.user.GetAllResponse;
 import com.codenite.ilaaj.api.responseModel.user.GetResponse;
 import com.codenite.ilaaj.api.responseModel.user.UpdateUserResponse;
@@ -46,6 +47,11 @@ public class UserController {
     public interface tokenHandler{
         void onSuccess(String token, boolean newUser);
         void onFailure(Throwable e);
+    }
+
+    public interface addUserHandler{
+        void onSuccess(User user);
+        void onFailure(Throwable t);
     }
 
     public void create(String token,boolean isDoctor,tokenHandler handler){
@@ -125,6 +131,33 @@ public class UserController {
 
             @Override
             public void onFailure(Call<UpdateUserResponse> call, Throwable t) {
+                handler.onFailure(t);
+            }
+        });
+    }
+
+    public void addUser(User user,addUserHandler handler){
+        Map<String,String>body = new HashMap<>();
+        body.put("name",user.getName());
+        body.put("phone",user.getPhone());
+        body.put("email",user.getEmail());
+        body.put("is_verified",String.valueOf(user.isVerified()));
+        body.put("age",String.valueOf(user.getAge()));
+        body.put("type",user.getType());
+        body.put("hash",user.getHash());
+        body.put("new_user",String.valueOf(user.isNewUser()));
+        Call<AddUserResponse> call = RetrofitClient.getClient().addUser(prefs.getToken(),body);
+
+        call.enqueue(new Callback<AddUserResponse>() {
+            @Override
+            public void onResponse(Call<AddUserResponse> call, Response<AddUserResponse> response) {
+                if(response.isSuccessful()){
+                    handler.onSuccess(response.body().getUser());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddUserResponse> call, Throwable t) {
                 handler.onFailure(t);
             }
         });

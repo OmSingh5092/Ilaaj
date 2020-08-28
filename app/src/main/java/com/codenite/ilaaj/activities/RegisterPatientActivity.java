@@ -12,10 +12,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterPatientActivity extends AppCompatActivity {
     ActivityRegisterBinding binding;
 
-    User user;
+    User user = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,28 +27,27 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 readText();
-                if(validate()){
-                    uploadData();
-                }
+                uploadData();
             }
         });
     }
 
     private void uploadData(){
-        new UserController(this).updateUser(user, new UserController.userUpdateHandler() {
+        new UserController(this).addUser(user, new UserController.addUserHandler() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(User user) {
                 goToNextStep();
             }
+
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterPatientActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void goToNextStep(){
-        Intent i= new Intent(this,PreviousReportsActivity.class);
+        Intent i= new Intent(this, PreviousReportsActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
@@ -67,13 +66,13 @@ public class RegisterActivity extends AppCompatActivity {
                 "Please enter an age",
                 "Please enter a phone number"
         };
-        if(user.getName().length() ==0){
+        if(binding.name.getText().length() ==0){
             Snackbar.make(binding.getRoot(),messages[0],Snackbar.LENGTH_SHORT);
             return false;
-        }else if(user.getPhone().length() ==0){
+        }else if(binding.phone.getText().length() ==0){
             Snackbar.make(binding.getRoot(),messages[1],Snackbar.LENGTH_SHORT);
             return false;
-        }else if(user.getAge() ==0){
+        }else if(binding.age.getText().length() ==0){
             Snackbar.make(binding.getRoot(),messages[2],Snackbar.LENGTH_SHORT);
             return false;
         }

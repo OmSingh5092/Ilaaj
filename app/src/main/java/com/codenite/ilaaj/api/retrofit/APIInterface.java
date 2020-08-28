@@ -33,11 +33,11 @@ public interface APIInterface {
     Call<GetResponse> getUser(@Header("token") String token);
     @GET("users/get/all")
     Call<GetAllResponse> getAllUser(@Header("token") String token);
-    @POST
+    @POST("users/add")
     Call<AddUserResponse> addUser(@Header("token") String token,@Body Map<String,String> body);
-    @DELETE
+    @DELETE("users/delete")
     Call<DeleteUserResponse> deleteUser(@Header("token")String token);
-    @PUT
+    @PUT("users/update")
     Call<UpdateUserResponse> updateUser(@Header("token")String token,@Body Map<String,String>body);
 
     //Appointments
