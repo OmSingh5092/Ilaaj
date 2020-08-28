@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.codenite.ilaaj.R;
 import com.codenite.ilaaj.api.controllers.UserController;
-import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.databinding.ActivitySigninBinding;
 import com.codenite.ilaaj.utils.SharedPrefs;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -18,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +34,8 @@ public class SignInActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     SharedPrefs sharedPrefs;
+
+    Boolean isDoctor = true;
 
     int RC_SIGN_IN;
     @Override
@@ -60,6 +62,8 @@ public class SignInActivity extends AppCompatActivity {
                 signIn();
             }
         });
+
+        setUpUserSelect();
     }
 
     @Override
@@ -89,10 +93,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void userSignIn(GoogleSignInAccount account){
         //Add code to submit user info in the database
-        Log.i("Token",account.getIdToken());
-        User user = new User();
-        firebaseAuthWithGoogle(account.getIdToken());
-        UserController.create(account.getIdToken(), new UserController.tokenHandler() {
+        new UserController(this).create(account.getIdToken(),isDoctor,new UserController.tokenHandler() {
             @Override
             public void onSuccess(String token, boolean newUser) {
                 sharedPrefs.saveName(account.getDisplayName());
@@ -100,10 +101,12 @@ public class SignInActivity extends AppCompatActivity {
                 sharedPrefs.saveNewUser(newUser);
                 sharedPrefs.saveToken(token);
                 firebaseAuthWithGoogle(account.getIdToken());
+
+                Log.i("Token",token);
             }
 
             @Override
-            public void onFailure(Exception e) {
+            public void onFailure(Throwable t) {
                 Toast.makeText(SignInActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -151,5 +154,32 @@ public class SignInActivity extends AppCompatActivity {
         Intent i = new Intent(this, HomeActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
+    }
+
+
+    private void setUpUserSelect(){
+        binding.tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:
+                        isDoctor = true;
+                        break;
+                    case 1:
+                        isDoctor = false;
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }

@@ -53,8 +53,4 @@ public interface APIInterface {
     Call<AddAppointmentResponse> addAppointment(@Header("token") String token,@Body Map<String,String> body);
     @PUT("appointments/update")
     Call<UpdateAppointmentResponse> updateAppointment(@Header("token") String token,@Body Map<String,String> body);
-
-
-
-
 }

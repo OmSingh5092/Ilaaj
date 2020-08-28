@@ -35,13 +35,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void uploadData(){
-        UserController.update(user, new UserController.userDatabaseHandler() {
+        new UserController(this).updateUser(user, new UserController.userUpdateHandler() {
             @Override
-            public void onSuccess(User user) {
+            public void onSuccess() {
                 goToNextStep();
             }
             @Override
-            public void onFailure(Exception e) {
+            public void onFailure(Throwable t) {
                 Toast.makeText(RegisterActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
