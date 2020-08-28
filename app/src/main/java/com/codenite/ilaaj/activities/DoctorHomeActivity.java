@@ -10,6 +10,7 @@ import com.codenite.ilaaj.fragments.ConversationsFragment;
 import com.codenite.ilaaj.fragments.DashboardDoctorFragment;
 import com.codenite.ilaaj.fragments.PaymentFragment;
 import com.codenite.ilaaj.fragments.ProfileFragment;
+import com.codenite.ilaaj.utils.SignOutHandler;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -56,7 +57,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
                 if(item.getItemId() == R.id.profile){
                     changeFragment(4);
                 }else if(item.getItemId() == R.id.logout){
-
+                    signOut();
                 }
                 binding.drawer.closeDrawer(Gravity.LEFT);
                 return false;
@@ -90,6 +91,6 @@ public class DoctorHomeActivity extends AppCompatActivity {
     }
 
     private void signOut(){
-
+        new SignOutHandler(this).initialize();
     }
 }

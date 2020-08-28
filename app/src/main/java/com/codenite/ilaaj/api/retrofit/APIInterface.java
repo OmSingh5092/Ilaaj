@@ -47,7 +47,7 @@ public interface APIInterface {
     @GET("appointments/get/all")
     Call<GetAllAppointmentsResponse> getAllAppointments(@Header("token") String token);
     @HTTP(method = "GET", path = "appointments/get/user", hasBody = true)
-    Call<GetByUserResponse> getAppointmentByUser(@Header("token")String token,@Body Map<String,String> body);
+    Call<GetByUserResponse> getAppointmentByUser(@Header("token")String token,@Header("userId") int userId);
     @DELETE("appointments/delete")
     Call<DeleteAppointmentResponse> deleteAppointment(@Header("token")String token,@Body Map<String,String>body);
     @POST("appointments/add")

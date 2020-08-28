@@ -6,6 +6,7 @@ import com.codenite.ilaaj.api.dataModels.Appointment;
 import com.codenite.ilaaj.api.responseModel.appointment.AddAppointmentResponse;
 import com.codenite.ilaaj.api.responseModel.appointment.GetAppointmentResponse;
 import com.codenite.ilaaj.api.responseModel.appointment.GetByUserResponse;
+import com.codenite.ilaaj.api.responseModel.appointment.UpdateAppointmentResponse;
 import com.codenite.ilaaj.api.retrofit.RetrofitClient;
 import com.codenite.ilaaj.utils.SharedPrefs;
 
@@ -37,6 +38,11 @@ public class AppointmentController {
 
     public interface getByUserHandler{
         void onSuccess(List<Appointment> appointments);
+        void onFailure(Throwable t);
+    }
+
+    public interface updateAppointmentHandler{
+        void onSuccess();
         void onFailure(Throwable t);
     }
     public void getAppointment(int id, getAppointmentHandler handler){
@@ -82,10 +88,8 @@ public class AppointmentController {
     }
 
     public void getByUser(int userId, getByUserHandler handler){
-        Map<String,String> body = new HashMap<>();
-        body.put("user_id",String.valueOf(userId));
 
-        Call<GetByUserResponse> call = RetrofitClient.getClient().getAppointmentByUser(prefs.getToken(),body);
+        Call<GetByUserResponse> call = RetrofitClient.getClient().getAppointmentByUser(prefs.getToken(),userId);
         call.enqueue(new Callback<GetByUserResponse>() {
             @Override
             public void onResponse(Call<GetByUserResponse> call, Response<GetByUserResponse> response) {
@@ -96,6 +100,29 @@ public class AppointmentController {
 
             @Override
             public void onFailure(Call<GetByUserResponse> call, Throwable t) {
+                handler.onFailure(t);
+            }
+        });
+    }
+
+    public void updateAppointment(Appointment appointment, updateAppointmentHandler handler){
+        Map<String,String> body = new HashMap<>();
+        body.put("id",String.valueOf(appointment.getAppointmentId()));
+        body.put("dateTime",appointment.getDateTime());
+        body.put("meet_link",appointment.getMeetLink());
+
+        Call<UpdateAppointmentResponse> call = RetrofitClient.getClient().updateAppointment(prefs.getToken(),body);
+
+        call.enqueue(new Callback<UpdateAppointmentResponse>() {
+            @Override
+            public void onResponse(Call<UpdateAppointmentResponse> call, Response<UpdateAppointmentResponse> response) {
+                if(response.isSuccessful()){
+                    handler.onSuccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateAppointmentResponse> call, Throwable t) {
                 handler.onFailure(t);
             }
         });

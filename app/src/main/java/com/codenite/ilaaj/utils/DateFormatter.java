@@ -1,5 +1,7 @@
 package com.codenite.ilaaj.utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,6 +10,14 @@ public class DateFormatter {
     SimpleDateFormat dateFormat;
     public DateFormatter(Date date) {
         this.date = date;
+    }
+    public DateFormatter(String isoString){
+        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        try {
+            date = df1.parse(isoString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getDate(){
