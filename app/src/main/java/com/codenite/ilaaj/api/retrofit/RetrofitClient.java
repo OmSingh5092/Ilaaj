@@ -1,4 +1,4 @@
-package com.codenite.ilaaj.retrofit;
+package com.codenite.ilaaj.api.retrofit;
 
 import java.util.concurrent.TimeUnit;
 
