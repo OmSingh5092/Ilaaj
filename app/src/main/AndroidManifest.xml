@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.PatientDetailsActivity"></activity>
+        <activity android:name=".activities.RegisterDoctorActivity"></activity>
+        <activity android:name=".activities.PatientDetailsActivity" />
         <activity android:name=".activities.DoctorHomeActivity" />
         <activity android:name=".activities.PreviousReportsActivity" />
         <activity android:name=".activities.ConversationActivity" />

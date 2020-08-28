@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
     @SerializedName("id")
@@ -18,9 +19,6 @@ public class User implements Serializable {
     @SerializedName("email")
     @Expose
     String email;
-    @SerializedName("is_verified")
-    @Expose
-    boolean isVerified;
     @SerializedName("age")
     @Expose
     int age;
@@ -33,6 +31,28 @@ public class User implements Serializable {
     @SerializedName("new_user")
     @Expose
     boolean newUser;
+    @SerializedName("doctor")
+    @Expose
+    boolean doctor;
+    @SerializedName("documents")
+    @Expose
+    List<Record> documents;
+
+    public boolean isDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(boolean doctor) {
+        this.doctor = doctor;
+    }
+
+    public List<Record> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Record> documents) {
+        this.documents = documents;
+    }
 
     public boolean isNewUser() {
         return newUser;
@@ -72,14 +92,6 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean isVerified() {
-        return isVerified;
-    }
-
-    public void setVerified(boolean verified) {
-        isVerified = verified;
     }
 
     public int getAge() {

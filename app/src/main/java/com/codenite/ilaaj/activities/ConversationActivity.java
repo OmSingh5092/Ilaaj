@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.codenite.ilaaj.databinding.ActivityConversationBinding;
 import com.codenite.ilaaj.recyclerView.adapters.ChatAdapter;
+import com.codenite.ilaaj.utils.SharedPrefs;
 import com.codenite.ilaaj.utils.conversation.ChatController;
 import com.codenite.ilaaj.utils.conversation.ChatModel;
 
@@ -28,8 +29,7 @@ public class ConversationActivity extends AppCompatActivity {
         binding = ActivityConversationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-        //channelId = getIntent().getStringExtra("channelId");
-        channelId = "1";
+        channelId = getIntent().getStringExtra("channelId");
         loadData();
 
 
@@ -48,8 +48,7 @@ public class ConversationActivity extends AppCompatActivity {
         }
         ChatModel model = new ChatModel();
         model.setMessageText(binding.message.getText().toString());
-        //model.setDoctor(new SharedPrefs(this).isDoctor());
-        model.setDoctor(true);
+        model.setDoctor(new SharedPrefs(this).isDoctor());
         model.setTime(System.currentTimeMillis());
 
         ChatController.sendMessage(channelId,model, new ChatController.SendMessageHandler() {

@@ -98,8 +98,9 @@ public class SignInActivity extends AppCompatActivity {
             public void onSuccess(String token, boolean newUser) {
                 sharedPrefs.saveName(account.getDisplayName());
                 sharedPrefs.saveEmail(account.getEmail());
-                sharedPrefs.saveNewUser(newUser);
+                sharedPrefs.saveNewUser(!newUser);
                 sharedPrefs.saveToken(token);
+                sharedPrefs.saveUserType(isDoctor);
                 firebaseAuthWithGoogle(account.getIdToken());
 
                 Log.i("Token",token);
@@ -145,15 +146,29 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void goToOnBoarding(){
-        Intent i = new Intent(this, RegisterPatientActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
+        if(isDoctor){
+            Intent i = new Intent(this, RegisterDoctorActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(this, RegisterPatientActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }
+
     }
 
     private  void goToHome(){
-        Intent i = new Intent(this, HomeActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
+        if(isDoctor){
+            Intent i = new Intent(this, DoctorHomeActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(this, HomeActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }
+
     }
 
 

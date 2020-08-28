@@ -3,6 +3,7 @@ package com.codenite.ilaaj.api.retrofit;
 import com.codenite.ilaaj.api.responseModel.appointment.AddAppointmentResponse;
 import com.codenite.ilaaj.api.responseModel.appointment.DeleteAppointmentResponse;
 import com.codenite.ilaaj.api.responseModel.appointment.GetAllAppointmentsResponse;
+import com.codenite.ilaaj.api.responseModel.appointment.GetAllDoctorsResponse;
 import com.codenite.ilaaj.api.responseModel.appointment.GetAppointmentResponse;
 import com.codenite.ilaaj.api.responseModel.appointment.GetByUserResponse;
 import com.codenite.ilaaj.api.responseModel.appointment.UpdateAppointmentResponse;
@@ -19,7 +20,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -40,14 +40,18 @@ public interface APIInterface {
     Call<DeleteUserResponse> deleteUser(@Header("token")String token);
     @PUT("users/update")
     Call<UpdateUserResponse> updateUser(@Header("token")String token,@Body Map<String,String>body);
+    @GET("users/get/direct")
+    Call<GetResponse> getSpecificUser(@Header("token")String token, @Header("id") int id);
+    @GET("users/get/doctors")
+    Call<GetAllDoctorsResponse> getAllDoctors(@Header("token")String token);
 
     //Appointments
-    @HTTP(method = "GET", path = "appointments/get", hasBody = true)
+    @GET("appointments/get")
     Call<GetAppointmentResponse> getAppointment(@Header("token")String token, @Body Map<String,String> body);
     @GET("appointments/get/all")
     Call<GetAllAppointmentsResponse> getAllAppointments(@Header("token") String token);
-    @HTTP(method = "GET", path = "appointments/get/user", hasBody = true)
-    Call<GetByUserResponse> getAppointmentByUser(@Header("token")String token,@Header("userId") int userId);
+    @GET("appointments/get/user")
+    Call<GetByUserResponse> getAppointmentByUser(@Header("token")String token,@Header("id")int userId);
     @DELETE("appointments/delete")
     Call<DeleteAppointmentResponse> deleteAppointment(@Header("token")String token,@Body Map<String,String>body);
     @POST("appointments/add")

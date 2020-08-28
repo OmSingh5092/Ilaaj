@@ -32,15 +32,30 @@ public class SplashActivity extends AppCompatActivity {
                             finish();
                         }else{
                             if(prefs.isDoctor()){
-                                Log.i("SPLASH SCREEN INTENT", "Logged in");
-                                Intent main = new Intent(SplashActivity.this, DoctorHomeActivity.class);
-                                startActivity(main);
-                                finish();
+                                if(prefs.getNewUser()){
+                                    Log.i("SPLASH SCREEN INTENT", "Logged in");
+                                    Intent main = new Intent(SplashActivity.this,RegisterDoctorActivity.class);
+                                    startActivity(main);
+                                    finish();
+                                }else{
+                                    Log.i("SPLASH SCREEN INTENT", "Logged in");
+                                    Intent main = new Intent(SplashActivity.this, DoctorHomeActivity.class);
+                                    startActivity(main);
+                                    finish();
+                                }
+
                             }else{
-                                Log.i("SPLASH SCREEN INTENT", "Logged in");
-                                Intent main = new Intent(SplashActivity.this, HomeActivity.class);
-                                startActivity(main);
-                                finish();
+                                if(prefs.getNewUser()){
+                                    Log.i("SPLASH SCREEN INTENT", "Logged in");
+                                    Intent main = new Intent(SplashActivity.this, RegisterPatientActivity.class);
+                                    startActivity(main);
+                                    finish();
+                                }else{
+                                    Log.i("SPLASH SCREEN INTENT", "Logged in");
+                                    Intent main = new Intent(SplashActivity.this, HomeActivity.class);
+                                    startActivity(main);
+                                    finish();
+                                }
                             }
 
                         }

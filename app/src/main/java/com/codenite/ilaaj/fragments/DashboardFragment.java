@@ -63,7 +63,7 @@ public class DashboardFragment extends Fragment {
         new AppointmentController(context).getByUser(prefs.getUserId(), new AppointmentController.getByUserHandler() {
             @Override
             public void onSuccess(List<Appointment> appointments) {
-                DashboardFragment.this.data = data;
+                DashboardFragment.this.data = appointments;
                 Log.i("Data",data.toString());
                 setUpAppointmentRecyclerView();
             }
@@ -83,6 +83,8 @@ public class DashboardFragment extends Fragment {
     }
 
     private void setUpAppointmentRecyclerView(){
+        binding.noAppointment.setVisibility(View.GONE);
+        binding.appointmentRecycler.setVisibility(View.VISIBLE);
         binding.appointmentRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new BookedAppointmentsAdapter(getActivity(), data, new ItemClickHandler() {
             @Override

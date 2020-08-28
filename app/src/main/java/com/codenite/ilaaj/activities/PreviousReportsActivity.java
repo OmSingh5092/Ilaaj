@@ -52,6 +52,7 @@ public class PreviousReportsActivity extends AppCompatActivity {
                 Intent i = new Intent(PreviousReportsActivity.this,HomeActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
+                finish();
             }
         });
     }
@@ -81,7 +82,7 @@ public class PreviousReportsActivity extends AppCompatActivity {
     private void uploadFile(Uri uri){
         //upload the file and get the path
 
-        Storage.uploadRecord(uri, new Storage.recordUploadHandler() {
+        new Storage(this).uploadRecord(uri, new Storage.recordUploadHandler() {
             @Override
             public void onSuccess(Record record) {
                 uploadRecord(record);

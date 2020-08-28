@@ -37,7 +37,7 @@ public class MakeAppointmentFragment extends Fragment {
     }
 
     private void loadData(){
-        new UserController(context).getAllUser(new UserController.userGetAllHandler() {
+        new UserController(context).getAllDoctors(new UserController.userGetAllHandler() {
             @Override
             public void onSuccess(List<User> list) {
                 users = list;
@@ -52,6 +52,9 @@ public class MakeAppointmentFragment extends Fragment {
     }
 
     private void setUpRecyclerView(){
+        if(users == null){
+            users = new ArrayList<>();
+        }
         adapter = new DoctorsAdapter(context, users, new ItemClickHandler() {
             @Override
             public void onViewClick(int position) {

@@ -16,6 +16,7 @@ import com.codenite.ilaaj.recyclerView.adapters.BookedAppointmentsAdapter;
 import com.codenite.ilaaj.recyclerView.adapters.ItemClickHandler;
 import com.codenite.ilaaj.utils.SharedPrefs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class ConversationsFragment extends Fragment {
     FragmentConversationsBinding binding;
-    List<Appointment> data;
+    List<Appointment> data = new ArrayList<>();
     BookedAppointmentsAdapter adapter;
     Context context;
     SharedPrefs prefs;
@@ -43,7 +44,7 @@ public class ConversationsFragment extends Fragment {
         new AppointmentController(context).getByUser(prefs.getUserId(), new AppointmentController.getByUserHandler() {
             @Override
             public void onSuccess(List<Appointment> appointments) {
-                ConversationsFragment.this.data = data;
+                ConversationsFragment.this.data = appointments;
                 setUpAppointmentRecyclerView();
             }
 
@@ -62,6 +63,7 @@ public class ConversationsFragment extends Fragment {
                 Appointment appointment = data.get(position);
                 Intent i = new Intent(getContext(), ConversationActivity.class);
                 i.putExtra("channelId",String.valueOf(appointment.getAppointmentId()));
+                startActivity(i);
             }
         });
 

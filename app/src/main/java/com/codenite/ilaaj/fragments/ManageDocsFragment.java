@@ -56,7 +56,7 @@ public class ManageDocsFragment extends Fragment {
     private void uploadFile(Uri uri){
         //upload the file and get the path
 
-        Storage.uploadRecord(uri, new Storage.recordUploadHandler() {
+        new Storage(context).uploadRecord(uri, new Storage.recordUploadHandler() {
             @Override
             public void onSuccess(Record record) {
                 uploadRecord(record);

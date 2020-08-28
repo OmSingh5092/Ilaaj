@@ -36,7 +36,9 @@ public class DashboardDoctorFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDoctorDashboardBinding.inflate(getLayoutInflater(),container,false);
-
+        context = getContext();
+        prefs = new SharedPrefs(context);
+        loadData();
         return binding.getRoot();
     }
 
