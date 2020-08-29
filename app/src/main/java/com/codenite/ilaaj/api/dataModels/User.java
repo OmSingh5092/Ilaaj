@@ -37,6 +37,39 @@ public class User implements Serializable {
     @SerializedName("documents")
     @Expose
     List<Record> documents;
+    @SerializedName("upi_id")
+    @Expose
+    String upiId;
+    @SerializedName("rating")
+    @Expose
+    String rating;
+    @SerializedName("price")
+    @Expose
+    String price;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getUpiId() {
+        return upiId;
+    }
+
+    public void setUpiId(String upiId) {
+        this.upiId = upiId;
+    }
 
     public boolean isDoctor() {
         return doctor;

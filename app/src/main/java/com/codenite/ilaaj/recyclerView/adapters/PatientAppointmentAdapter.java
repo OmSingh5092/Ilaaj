@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.codenite.ilaaj.api.controllers.UserController;
 import com.codenite.ilaaj.api.dataModels.Appointment;
+import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.databinding.RecyclerBookedAppointmentBinding;
 
 import java.util.ArrayList;
@@ -37,7 +39,17 @@ public class PatientAppointmentAdapter extends RecyclerView.Adapter<PatientAppoi
     @Override
     public void onBindViewHolder(@NonNull PatientAppointmentAdapter.ViewHolder holder, int position) {
         Appointment appointment = data.get(position);
-        
+        new UserController(context).getSpecificUser(appointment.getUserId(), new UserController.userGetHandler() {
+            @Override
+            public void onSuccess(User user) {
+                holder.patient.setText(user.getName());
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+
+            }
+        });
 
     }
 
@@ -53,6 +65,13 @@ public class PatientAppointmentAdapter extends RecyclerView.Adapter<PatientAppoi
             patient= binding.doctorName;
             date = binding.date;
             time = binding.time;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    handler.onViewClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

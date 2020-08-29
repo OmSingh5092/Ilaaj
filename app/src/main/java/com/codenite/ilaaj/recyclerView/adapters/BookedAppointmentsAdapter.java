@@ -39,7 +39,6 @@ public class BookedAppointmentsAdapter extends RecyclerView.Adapter<BookedAppoin
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Appointment appointment = data.get(position);
-        holder.date.setText(appointment.getDateTime());
         new UserController(context).getSpecificUser(appointment.getDoctorId(), new UserController.userGetHandler() {
             @Override
             public void onSuccess(User user) {

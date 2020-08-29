@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
-import com.codenite.ilaaj.api.controllers.RecordController;
 import com.codenite.ilaaj.api.dataModels.Record;
 import com.codenite.ilaaj.databinding.ActivityPreviousReportsBinding;
 import com.codenite.ilaaj.recyclerView.adapters.ItemClickHandler;
@@ -95,18 +94,8 @@ public class PreviousReportsActivity extends AppCompatActivity {
     }
 
     private void uploadRecord(Record record){
-        RecordController.create(record, new RecordController.recordDatabaseHandler() {
-            @Override
-            public void onSuccess(Record record) {
-                list.add(record);
-                updateRecyclerView();
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-
-            }
-        });
+        list.add(record);
+        updateRecyclerView();
     }
 
     @Override

@@ -83,8 +83,10 @@ public class DashboardFragment extends Fragment {
     }
 
     private void setUpAppointmentRecyclerView(){
-        binding.noAppointment.setVisibility(View.GONE);
-        binding.appointmentRecycler.setVisibility(View.VISIBLE);
+        if(data.size() != 0){
+            binding.noAppointment.setVisibility(View.GONE);
+            binding.appointmentRecycler.setVisibility(View.VISIBLE);
+        }
         binding.appointmentRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new BookedAppointmentsAdapter(getActivity(), data, new ItemClickHandler() {
             @Override

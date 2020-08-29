@@ -2,7 +2,6 @@ package com.codenite.ilaaj.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,7 +45,7 @@ public class DashboardDoctorFragment extends Fragment {
         new AppointmentController(context).getByUser(prefs.getUserId(), new AppointmentController.getByUserHandler() {
             @Override
             public void onSuccess(List<Appointment> appointments) {
-                DashboardDoctorFragment.this.data = data;
+                DashboardDoctorFragment.this.data = appointments;
                 Log.i("Data",data.toString());
                 setUpAppointmentRecyclerView();
             }
@@ -59,19 +58,19 @@ public class DashboardDoctorFragment extends Fragment {
 
     }
 
-    private void openMeetingUrl(String url){
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
-    }
 
     private void setUpAppointmentRecyclerView(){
+        if(data.size()!=0){
+            binding.noAppointment.setVisibility(View.GONE);
+            binding.appointmentRecycler.setVisibility(View.VISIBLE);
+        }
         binding.appointmentRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter  = new PatientAppointmentAdapter(context, data, new ItemClickHandler() {
             @Override
             public void onViewClick(int position) {
                 Intent i = new Intent(context, PatientDetailsActivity.class);
                 i.putExtra("appointment",data.get(position));
+                startActivity(i);
             }
         });
 

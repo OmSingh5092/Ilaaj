@@ -31,7 +31,7 @@ public class DateFormatter {
     }
 
     public String getDateISO(){
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         return  dateFormat.format(date);
     }
 

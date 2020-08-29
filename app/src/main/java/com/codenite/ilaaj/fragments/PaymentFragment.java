@@ -19,7 +19,7 @@ public class PaymentFragment extends Fragment {
     FragmentPaymentBinding binding;
     String upi, charge;
     Context context;
-    User user;
+    User doctor = new User();
 
     @Nullable
     @Override
@@ -35,9 +35,9 @@ public class PaymentFragment extends Fragment {
                     return;
                 }
                 update();
-
             }
         });
+
         return binding.getRoot();
     }
 
@@ -45,8 +45,8 @@ public class PaymentFragment extends Fragment {
         new UserController(context).getUser(new UserController.userGetHandler() {
             @Override
             public void onSuccess(User user) {
-                PaymentFragment.this.user = user;
-                setText();
+                doctor = user;
+                setPreviousData();
             }
 
             @Override
@@ -56,8 +56,18 @@ public class PaymentFragment extends Fragment {
         });
     }
 
-    private void setText(){
+    private void setPreviousData(){
+        if(doctor.getUpiId()!=null){
+            binding.upiId.setText(doctor.getUpiId());
+        }
+        if(doctor.getPrice()!=null){
+            binding.charge.setText(doctor.getPrice());
+        }
+    }
 
+    private void setText(){
+        doctor.setPrice(upi);
+        doctor.setUpiId(charge);
     }
 
     private void getText(){
@@ -66,14 +76,15 @@ public class PaymentFragment extends Fragment {
     }
 
     private void update(){
-        new UserController(context).getUser(new UserController.userGetHandler() {
+        setText();
+        new UserController(context).updateUser(doctor, new UserController.userUpdateHandler() {
             @Override
-            public void onSuccess(User user) {
-                //Set new values
+            public void onSuccess() {
+                Toast.makeText(context, "Payment profile updated successfully!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Throwable e) {
+            public void onFailure(Throwable t) {
 
             }
         });

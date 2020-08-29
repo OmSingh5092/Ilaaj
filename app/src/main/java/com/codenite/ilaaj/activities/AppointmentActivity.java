@@ -54,6 +54,8 @@ public class AppointmentActivity extends AppCompatActivity {
 
     private void addInfo(){
         binding.doctorName.setText(doctor.getName());
+        binding.doctorCategory.setText(doctor.getType());
+        binding.charge.setText("$200");
     }
 
     private void setPickerDialogs(){

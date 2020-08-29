@@ -22,12 +22,14 @@ public class RegisterDoctorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterDoctorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         prefs = new SharedPrefs(this);
 
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!validate()){
+                    return;
+                }
                 readText();
                 uploadData();
             }
@@ -60,6 +62,7 @@ public class RegisterDoctorActivity extends AppCompatActivity {
 
     private void readText(){
         user.setName(binding.name.getText().toString());
+        user.setType(binding.category.getText().toString());
         user.setPhone(binding.phone.getText().toString());
         user.setDoctor(true);
         user.setNewUser(false);
@@ -69,14 +72,17 @@ public class RegisterDoctorActivity extends AppCompatActivity {
     private boolean validate(){
         String[] messages = new String[]{
                 "Please enter a name",
-                "Please enter an age",
+                "Please enter a specialization",
                 "Please enter a phone number"
         };
         if(binding.name.getText().length() ==0){
-            Snackbar.make(binding.getRoot(),messages[0],Snackbar.LENGTH_SHORT);
+            Snackbar.make(binding.getRoot(),messages[0],Snackbar.LENGTH_SHORT).show();
             return false;
         }else if(binding.phone.getText().length() ==0){
-            Snackbar.make(binding.getRoot(),messages[1],Snackbar.LENGTH_SHORT);
+            Snackbar.make(binding.getRoot(),messages[1],Snackbar.LENGTH_SHORT).show();
+            return false;
+        }else if(binding.category.getText().length() == 0){
+            Snackbar.make(binding.getRoot(),messages[2],Snackbar.LENGTH_SHORT).show();
             return false;
         }
 

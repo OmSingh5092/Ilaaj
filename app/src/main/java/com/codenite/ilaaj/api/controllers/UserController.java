@@ -118,6 +118,9 @@ public class UserController {
         body.put("age",String.valueOf(user.getAge()));
         body.put("type",user.getType());
         body.put("hash",user.getHash());
+        body.put("upi_id",user.getUpiId());
+        body.put("price",user.getPrice());
+        body.put("rating",user.getRating());
         body.put("new_user",String.valueOf(user.isNewUser()));
 
         Call<UpdateUserResponse> call = RetrofitClient.getClient().updateUser(prefs.getToken(),body);
@@ -145,6 +148,9 @@ public class UserController {
         body.put("type",user.getType());
         body.put("hash",user.getHash());
         body.put("new_user",String.valueOf(false));
+        body.put("upi_id",user.getUpiId());
+        body.put("price",user.getPrice());
+        body.put("rating",user.getRating());
         Call<AddUserResponse> call = RetrofitClient.getClient().addUser(prefs.getToken(),body);
 
         call.enqueue(new Callback<AddUserResponse>() {

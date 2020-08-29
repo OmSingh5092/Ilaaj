@@ -5,13 +5,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codenite.ilaaj.api.controllers.AppointmentController;
+import com.codenite.ilaaj.api.controllers.UserController;
 import com.codenite.ilaaj.api.dataModels.Appointment;
 import com.codenite.ilaaj.api.dataModels.Record;
 import com.codenite.ilaaj.api.dataModels.User;
 import com.codenite.ilaaj.databinding.ActivityPatientDetailsBinding;
 import com.codenite.ilaaj.recyclerView.adapters.ItemClickHandler;
 import com.codenite.ilaaj.recyclerView.adapters.PreviousReportsAdapter;
-import com.codenite.ilaaj.utils.DateFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 public class PatientDetailsActivity extends AppCompatActivity {
     ActivityPatientDetailsBinding binding;
     Appointment appointment;
-    User patient;
+    User patient = new User();
     PreviousReportsAdapter adapter;
     List<Record> records = new ArrayList<>();
 
@@ -45,7 +45,19 @@ public class PatientDetailsActivity extends AppCompatActivity {
     }
 
     void loadData(){
-        binding.time.setText(new DateFormatter(appointment.getDateTime()).getDateAndTime());
+        binding.time.setText(appointment.getDateTime());
+
+        new UserController(this).getSpecificUser(appointment.getUserId(), new UserController.userGetHandler() {
+            @Override
+            public void onSuccess(User user) {
+                patient = user;
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+
+            }
+        });
         // Get patient data;
     }
 
