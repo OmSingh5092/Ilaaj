@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "854051105548",
+    "firebase_url": "https://ilaaj-ac620.firebaseio.com",
+    "project_id": "ilaaj-ac620",
+    "storage_bucket": "ilaaj-ac620.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854051105548:android:aec65a59c16311c4ad3729",
+        "android_client_info": {
+          "package_name": "com.codenite.ilaaj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854051105548-87iv7j45ss3hn2jg50qqluaas4l6oacv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codenite.ilaaj",
+            "certificate_hash": "7268adab26487ffb5a5e506e2db0a30edbcb5865"
+          }
+        },
+        {
+          "client_id": "854051105548-9p2frjkpedfabgfjdlamk9g1kpgfbt2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-cIzZLcX6aoDVrTMtbuuAZyy5VJ8HfUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854051105548-9p2frjkpedfabgfjdlamk9g1kpgfbt2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
